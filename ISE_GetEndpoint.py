@@ -108,18 +108,26 @@ def main():
     # Call the function to get endpoints
     endpoints = get_endpoints()
     if endpoints:
+        endpoint_data = []
+
+        # Collect endpoint data
+        for endpoint in endpoints:
+            endpoint_id = endpoint['id']
+            endpoint_name = endpoint['name']
+            endpoint_group_id = get_endpoint_group(endpoint_id)
+            endpoint_group_name = get_endpoint_group_name(endpoint_group_id)
+            if endpoint_group_name in allowed_groups:
+                endpoint_data.append({'MAC': endpoint_name, 'Endpoint Group': endpoint_group_name})
+
+        # Sort the data alphabetically by 'Endpoint Group'
+        endpoint_data.sort(key=lambda x: x['Endpoint Group'])
+
+        # Write sorted data to CSV
         with open('filtered_endpoint_data.csv', mode='w', newline='') as file:
             fieldnames = ['MAC', 'Endpoint Group']
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
-            
-            for endpoint in endpoints:
-                endpoint_id = endpoint['id']
-                endpoint_name = endpoint['name']
-                endpoint_group_id = get_endpoint_group(endpoint_id)
-                endpoint_group_name = get_endpoint_group_name(endpoint_group_id)
-                if endpoint_group_name in allowed_groups:
-                    writer.writerow({'MAC': endpoint_name, 'Endpoint Group': endpoint_group_name})
+            writer.writerows(endpoint_data)
     else:
         print("Failed to retrieve endpoints.")
 
