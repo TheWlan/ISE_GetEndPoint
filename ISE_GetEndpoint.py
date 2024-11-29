@@ -7,8 +7,8 @@ def get_endpoints():
     # Suppress SSL warnings
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     
-    # Define the API endpoint for getting endpoints
-    endpoint_url = f"https://{ISE_IP}:9060/ers/config/endpoint"
+    # Define the API endpoint for getting endpoints, updated to use port 443
+    endpoint_url = f"https://{ISE_IP}:443/ers/config/endpoint"
 
     # Define headers for the API request
     headers = {
@@ -36,8 +36,8 @@ def get_endpoints():
         return None
 
 def get_endpoint_group(endpoint_id):
-    # Define the API endpoint for getting endpoint details
-    endpoint_url = f"https://{ISE_IP}:9060/ers/config/endpoint/{endpoint_id}"
+    # Define the API endpoint for getting endpoint details, updated to use port 443
+    endpoint_url = f"https://{ISE_IP}:443/ers/config/endpoint/{endpoint_id}"
 
     # Define headers for the API request
     headers = {
@@ -65,8 +65,8 @@ def get_endpoint_group(endpoint_id):
         return 'N/A'
 
 def get_endpoint_group_name(endpoint_group_id):
-    # Define the API endpoint for getting endpoint group details
-    endpoint_url = f"https://{ISE_IP}:9060/ers/config/endpointgroup/{endpoint_group_id}"
+    # Define the API endpoint for getting endpoint group details, updated to use port 443
+    endpoint_url = f"https://{ISE_IP}:443/ers/config/endpointgroup/{endpoint_group_id}"
 
     # Define headers for the API request
     headers = {
